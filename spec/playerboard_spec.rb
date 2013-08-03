@@ -13,7 +13,7 @@ describe PlayerBoard do
   end
 
   it "can bomb a bombable location" do
-    expect(playerboard.bomb("A1")).to eql("Miss!")
+    expect(playerboard.bomb("A1")).to eql("Miss.")
     expect(playerboard.bombable?("A1")).to eql(false)
   end
 

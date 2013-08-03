@@ -19,12 +19,12 @@ class Square
   end
 
   def bomb
-    @guessed = true unless guessed? rescue throw "Square already guessed."
+    @guessed = true unless guessed? rescue raise "Square already guessed."
     return_outcome
   end
 
   def return_outcome
     return "Hit!" if @value != 0
-    return "Miss!"
+    return "Miss."
   end
 end
