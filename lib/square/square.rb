@@ -5,10 +5,6 @@ class Square
     @value = 0
   end
 
-  def empty?
-    @value == 0
-  end
-
   def taken?
     @value != 0
   end
