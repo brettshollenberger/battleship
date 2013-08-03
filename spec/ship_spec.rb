@@ -15,7 +15,7 @@ describe Ship do
     expect(frigate.display).to eql([1, 1, 1])
   end
 
-  it "is a two-dimensional array as a veritical ship" do
+  it "is a two-dimensional array as a vertical ship" do
     frigate = Ship.new(3, "vertical")
     expect(frigate.display).to eql([[1], [1], [1]])
   end
