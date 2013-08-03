@@ -8,4 +8,8 @@ class Square
   def taken?
     @value != 0
   end
+
+  def location
+    "#{@x}#{@y}"
+  end
 end
