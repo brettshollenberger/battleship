@@ -7,12 +7,17 @@ class PlayerBoard < Hash
   end
 
   def bombable?(gridlocation)
-    not lookup(gridlocation).guessed?
+    not square(gridlocation).guessed?
+  end
+
+  def bomb(gridlocation)
+    return square(gridlocation).bomb if bombable?(gridlocation)
+    raise "Square already guessed."
   end
 
 private
 
-  def lookup(gridlocation)
+  def square(gridlocation)
     self[lettersplit(gridlocation)[0]][lettersplit(gridlocation)[1].to_i]
   end
 

@@ -3,6 +3,7 @@ class Square
   def initialize(x, y)
     @x, @y = x, y
     @value = 0
+    @guessed = false
   end
 
   def taken?
@@ -14,6 +15,16 @@ class Square
   end
 
   def guessed?
-    @guessed ||= false
+    @guessed
+  end
+
+  def bomb
+    @guessed = true unless guessed? rescue throw "Square already guessed."
+    return_outcome
+  end
+
+  def return_outcome
+    return "Hit!" if @value != 0
+    return "Miss!"
   end
 end
