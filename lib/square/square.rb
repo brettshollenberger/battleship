@@ -12,4 +12,8 @@ class Square
   def location
     "#{@x}#{@y}"
   end
+
+  def guessed?
+    @guessed ||= false
+  end
 end
