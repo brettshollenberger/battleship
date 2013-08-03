@@ -19,4 +19,11 @@ describe Ship do
     frigate = Ship.new(3, "vertical")
     expect(frigate.display).to eql([[1], [1], [1]])
   end
+
+  it "flips the ship" do
+    frigate.flip
+    expect(frigate.display).to eql([[1], [1], [1]])
+    frigate.flip
+    expect(frigate.display).to eql([1, 1, 1])
+  end
 end
