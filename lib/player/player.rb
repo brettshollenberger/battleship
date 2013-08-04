@@ -1,11 +1,13 @@
 class Player
 
-  def name
-    "Danny"
+  attr_accessor :board
+
+  def initialize
+    @board = PlayerBoard.new
   end
 
-  def board
-    PlayerBoard.new
+  def name
+    "Danny"
   end
 
 end

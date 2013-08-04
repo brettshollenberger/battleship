@@ -11,13 +11,14 @@ describe Ship do
     expect(frigate.orientation).to eql("horizontal")
   end
 
-  it "is a one-dimensional array as a horizontal ship" do
-    expect(frigate.display).to eql([1, 1, 1])
+  it "in a row" do
+    expect(frigate.in_a_row?("A1", "A2", "A3")).to eql(true)
   end
-
-  it "is a two-dimensional array as a vertical ship" do
-    frigate = Ship.new(3, "vertical")
-    expect(frigate.display).to eql([[1], [1], [1]])
+ 
+  it "sets ships on the board" do
+    frigate.set("A1", "A2", "A3")
+    expect(frigate[0].x).to eql("A")
+    expect(frigate[0].y).to eql("1")
   end
 
   it "flips the ship" do

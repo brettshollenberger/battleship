@@ -1,6 +1,6 @@
 class Square
   attr_accessor :x, :y
-  def initialize(x, y)
+  def initialize(x=nil, y=nil)
     @x, @y = x, y
     @value = 0
     @guessed = false
