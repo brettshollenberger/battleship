@@ -30,6 +30,7 @@ class Ship < Array
     self.map { |ship| ship.status }.uniq!.length == 1 && self[0].status == "hit"
   end
 
+private
   def valid_set?(*kwargs)
     in_a_row?(*kwargs) || in_a_col?(*kwargs)
   end
