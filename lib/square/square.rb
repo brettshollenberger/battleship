@@ -10,6 +10,14 @@ class Square
     @status != "empty"
   end
 
+  def hit?
+    @status == "hit"
+  end
+
+  def unhit?
+    @status == "unhit"
+  end
+
   def location
     "#{@x}#{@y}"
   end
