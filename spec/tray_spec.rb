@@ -24,7 +24,6 @@ describe Tray do
   end
 
   it "removes ships when they're set on the board" do
-    @frigate = playerboard.tray[:frigate]
     playerboard.set(playerboard.tray[:frigate], "A1", "A2", "A3")
     expect(playerboard.tray[:frigate]).to be(nil)
   end

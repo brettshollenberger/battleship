@@ -10,11 +10,10 @@ class PlayerBoard < Hash
   end
 
   def set(ship, *kwargs)
-    instance_var = @tray.each { |key, value| break key if value == ship }
-    instance_variable_set("@#{instance_var}", ship)
-    ship.set(*kwargs)
-    kwargs.each_with_index { |kwarg, index| self[lettersplit(kwarg)[0]][lettersplit(kwarg)[1].to_i] = ship[index] }
-    @tray.delete_if { |key, value| value == ship }
+    set_ship_instance_variable(ship) && 
+      ship.set(*kwargs) && 
+      replace_empty_squares_with_ship_squares(ship, *kwargs) &&
+      remove_ship_from_tray(ship)
   end
 
   def bombable?(gridlocation)
@@ -27,6 +26,18 @@ class PlayerBoard < Hash
   end
 
 private
+
+  def set_ship_instance_variable(ship)
+    @tray.each { |key, value| instance_variable_set("@#{key}", ship) if value == ship }
+  end
+
+  def replace_empty_squares_with_ship_squares(ship, *kwargs)
+    kwargs.each_with_index { |kwarg, index| self[lettersplit(kwarg)[0]][lettersplit(kwarg)[1].to_i] = ship[index] }
+  end
+
+  def remove_ship_from_tray(ship)
+    @tray.delete_if { |key, value| value == ship }
+  end
 
   def square(gridlocation)
     self[lettersplit(gridlocation)[0]][lettersplit(gridlocation)[1].to_i]
