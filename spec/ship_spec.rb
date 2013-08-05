@@ -10,21 +10,31 @@ describe Ship do
   it "has an orientation" do
     expect(frigate.orientation).to eql("horizontal")
   end
-
-  it "in a row" do
-    expect(frigate.in_a_row?("A1", "A2", "A3")).to eql(true)
-  end
  
-  it "sets ships on the board" do
-    frigate.set("A1", "A2", "A3")
-    expect(frigate[0].x).to eql("A")
-    expect(frigate[0].y).to eql("1")
-  end
+  # it "sets ships on the board" do
+  #   frigate.set("A1", "A2", "A3")
+  #   expect(frigate[0].x).to eql("A")
+  #   expect(frigate[0].y).to eql("1")
+  # end
 
   it "flips the ship" do
     frigate.flip
-    expect(frigate.display).to eql([[1], [1], [1]])
+    expect(frigate.orientation).to eql("vertical")
     frigate.flip
-    expect(frigate.display).to eql([1, 1, 1])
+    expect(frigate.orientation).to eql("horizontal")
+  end
+
+  it "starts unhit" do
+    expect(frigate.hit?).to eql(false)
+  end
+
+  it "starts with each square unhit" do
+    expect(frigate[0].status).to eql("unhit")
+  end
+
+  it "knows whether it is sunk" do
+    expect(frigate.sunk?).to eql(false)
+    (0..2).each { |num| frigate[num].status = "hit" }
+    expect(frigate.sunk?).to eql(true)
   end
 end

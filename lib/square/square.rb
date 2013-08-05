@@ -1,13 +1,13 @@
 class Square
-  attr_accessor :x, :y
-  def initialize(x=nil, y=nil)
-    @x, @y = x, y
-    @value = 0
+  attr_accessor :x, :y, :status
+  def initialize(x=nil, y=nil, ship=nil, ship_index=nil)
+    @x, @y, @ship = x, y, ship
+    set_status
     @guessed = false
   end
 
   def taken?
-    @value != 0
+    @status != "empty"
   end
 
   def location
@@ -24,7 +24,13 @@ class Square
   end
 
   def return_outcome
-    return "Hit!" if @value != 0
+    return "Hit!" if @value == "unhit"
     return "Miss."
+  end
+
+private
+  def set_status
+    @status = "unhit" unless @ship.nil?
+    @status = "empty" if @ship.nil?
   end
 end
