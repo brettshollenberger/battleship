@@ -1,9 +1,9 @@
 require_relative '../lib/battleship'
 
 describe Player do
-  let(:player) { Player.new }
+  let(:game)   { Game.new }
 
   it "has a name" do
-    expect(player.name).to eql("Danny")
+    expect(game.player1.name).to eql("Danny")
   end
 end

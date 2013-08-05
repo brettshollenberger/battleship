@@ -1,7 +1,8 @@
-class PlayerBoard < Hash
-  attr_accessor :tray, :carrier, :battleship, :cruiser, :frigate, :destroyer
+class Board < Hash
+  attr_accessor :game, :tray, :carrier, :battleship, :cruiser, :frigate, :destroyer
 
-  def initialize
+  def initialize(game=nil)
+    @game = game
     ("A".."J").each do |letter| 
       self[letter] = {}
       (1..10).each { |num| self[letter][num] = Square.new(letter, num) }
@@ -9,11 +10,16 @@ class PlayerBoard < Hash
     @tray = Tray.new
   end
 
+  def ready?
+    @tray.empty?
+  end
+
   def set(ship, *kwargs)
     set_ship_instance_variable(ship) && 
       ship.set(*kwargs) && 
       replace_empty_squares_with_ship_squares(ship, *kwargs) &&
       remove_ship_from_tray(ship)
+    @game.begin_play if @game
   end
 
   def bombable?(gridlocation)

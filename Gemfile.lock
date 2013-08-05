@@ -1,5 +1,4 @@
 GEM
-  remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.4)
     rspec (2.14.1)

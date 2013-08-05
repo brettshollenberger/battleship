@@ -1,8 +1,8 @@
 require_relative '../lib/battleship'
 
 describe Tray do
-  let(:tray)        { Tray.new }
-  let(:playerboard) { PlayerBoard.new }
+  let(:tray)  { Tray.new }
+  let(:board) { Board.new }
 
   it "starts with an aircraft carrier" do
     expect(tray[:carrier].length).to eql(5)
@@ -24,7 +24,7 @@ describe Tray do
   end
 
   it "removes ships when they're set on the board" do
-    playerboard.set(playerboard.tray[:frigate], "A1", "A2", "A3")
-    expect(playerboard.tray[:frigate]).to be(nil)
+    board.set(board.tray[:frigate], "A1", "A2", "A3")
+    expect(board.tray[:frigate]).to be(nil)
   end
 end
