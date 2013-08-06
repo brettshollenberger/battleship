@@ -1,7 +1,7 @@
 require_relative '../lib/battleship'
 
 describe Ship do
-  let(:frigate) { Ship.new(3) }
+  let(:frigate) { Ship.new(3, "Frigate") }
 
   it "has a length" do
     expect(frigate.length).to eql(3)

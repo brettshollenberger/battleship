@@ -7,6 +7,10 @@ class Player
     @board = Board.new(@game)
   end
 
+  def set(*kwargs)
+    @board.set(*kwargs)
+  end
+
   def name
     "Danny"
   end

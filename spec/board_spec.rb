@@ -1,6 +1,7 @@
 require_relative '../lib/battleship'
 
 describe Board do
+  let(:game)  { Game.new }
   let(:board) { Board.new }
 
   it "contains a ten by ten board" do
@@ -40,4 +41,5 @@ describe Board do
     board.set(board.tray[:destroyer], "B9", "B10")
     expect(board.ready?).to eql(true)
   end
+
 end

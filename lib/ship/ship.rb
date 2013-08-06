@@ -1,10 +1,11 @@
 class Ship < Array
-  attr_accessor :len, :orientation, :status
+  attr_accessor :len, :orientation, :status, :name
 
-  def initialize(len)
+  def initialize(len, name)
     @len = len
     @orientation = "horizontal"
     @status = "unhit"
+    @name = name
     set_empty_squares
   end
 
@@ -36,11 +37,11 @@ private
   end
 
   def in_a_row?(*kwargs)
-    kwargs.map { |arg| arg[0] }.uniq!.length == 1 && kwargs.map { |arg| arg[1] }.ordered_list?
+    kwargs.map { |arg| arg[0] }.uniq.length == 1 && kwargs.map { |arg| arg[1] }.ordered_list?
   end
 
   def in_a_col?(*kwargs)
-    kwargs.map { |arg| arg[0] }.uniq!.length == @len && kwargs.map { |arg| arg[1] }.uniq!.length == 1
+    kwargs.map { |arg| arg[0] }.uniq.length == @len && kwargs.map { |arg| arg[1] }.uniq.length == 1
   end
 
   def other_orientation

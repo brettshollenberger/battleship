@@ -19,7 +19,7 @@ class Board < Hash
       ship.set(*kwargs) && 
       replace_empty_squares_with_ship_squares(ship, *kwargs) &&
       remove_ship_from_tray(ship)
-    @game.begin_play if @game
+    @game.transition_to_play_phase if @game
   end
 
   def bombable?(gridlocation)
@@ -29,6 +29,19 @@ class Board < Hash
   def bomb(gridlocation)
     return square(gridlocation).bomb if bombable?(gridlocation)
     raise "Square already guessed."
+  end
+
+  def display
+    output = "     1  2  3  4  5  6  7  8  9  10\n  ----------------------------------\n"
+    ("A".."J").each do |letter|
+      output << letter + " |  " 
+      (1..10).each do |number| 
+        output << self[letter][number].representation.to_s + "  "
+      end
+      output << "|\n"
+    end
+    output << "  ----------------------------------"
+    print output
   end
 
 private
@@ -50,6 +63,6 @@ private
   end
 
   def lettersplit(str)
-    str.split("")
+    str.split(/\d/).zip(str.split(/\D/).reject { |n| n == "" }).flatten
   end
 end

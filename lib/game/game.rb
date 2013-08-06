@@ -6,7 +6,11 @@ class Game
     @player2 = Player.new(self)
   end
 
-  def begin_play
+  def play
+    
+  end
+
+  def transition_to_play_phase
     @phase = "play" if ready?
   end
 
