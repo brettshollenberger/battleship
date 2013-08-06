@@ -17,4 +17,8 @@ class Game
   def ready?
     @player1.board.ready? && @player2.board.ready?
   end
+
+  def over?
+    @player1.ships.sunk? || @player2.ships.sunk?
+  end
 end

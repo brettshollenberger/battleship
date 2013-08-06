@@ -15,4 +15,12 @@ class Player
     "Danny"
   end
 
+  def ships
+    Ships.new(@board.carrier, 
+      @board.battleship, 
+      @board.cruiser, 
+      @board.frigate, 
+      @board.destroyer)
+  end
+
 end

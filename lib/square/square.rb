@@ -33,13 +33,16 @@ class Square
   end
 
   def bomb
-    @guessed = true unless guessed? rescue raise "Square already guessed."
+    @guessed = true
+    @status = "hit" unless @status == "empty"
     return_outcome
   end
 
   def return_outcome
-    return "Hit!" if @status == "unhit"
-    return "Miss."
+    case @status
+      when "hit" then return "Hit!"
+      when "empty" then return "Miss."
+    end
   end
 
 private
