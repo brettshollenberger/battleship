@@ -92,7 +92,7 @@ private
   end
 
   def in_a_row?(*kwargs)
-    kwargs.map { |arg| arg[0] }.uniq.length == 1 && kwargs.map { |arg| arg[1] }.ordered_list?
+    kwargs.map { |arg| arg[0] }.uniq.length == 1 && kwargs.map { |arg| arg[1..-1].to_i }.ordered_list?
   end
 
   def in_a_col?(*kwargs, ship)
