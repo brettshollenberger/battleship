@@ -12,4 +12,9 @@ class Array
     (1..self.length - 1).each { |num| return false unless self.first == self[num] - num }
     return true
   end
+
+  def sorted_letters?
+    (self.sort.first..self.sort.last).to_a == self.sort
+  end
+
 end

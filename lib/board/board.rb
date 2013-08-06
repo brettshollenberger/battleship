@@ -15,11 +15,19 @@ class Board < Hash
   end
 
   def set(ship, *kwargs)
-    set_ship_instance_variable(ship) && 
-      ship.set(*kwargs) && 
-      replace_empty_squares_with_ship_squares(ship, *kwargs) &&
-      remove_ship_from_tray(ship)
-    @game.transition_to_play_phase if @game
+    unless squares_taken?(*kwargs)
+      if valid_set?(*kwargs, ship)
+        replace_empty_squares_with_ship_squares(ship, *kwargs) &&
+          set_ship_instance_variable(ship) &&
+          remove_ship_from_tray(ship) && 
+          ship.set(*kwargs) 
+        @game.transition_to_play_phase if @game
+      else
+        raise "Invalid location"
+      end
+    else
+      raise "Square already taken"
+    end
   end
 
   def bombable?(gridlocation)
@@ -51,7 +59,11 @@ private
   end
 
   def replace_empty_squares_with_ship_squares(ship, *kwargs)
-    kwargs.each_with_index { |kwarg, index| self[lettersplit(kwarg)[0]][lettersplit(kwarg)[1].to_i] = ship[index] }
+    kwargs.each_with_index { |kwarg, index| self[lettersplit(kwarg)[0]][lettersplit(kwarg)[1].to_i] = ship[index] } 
+  end
+
+  def squares_taken?(*kwargs)
+    kwargs.each { |kwarg| return true if self[lettersplit(kwarg)[0]][lettersplit(kwarg)[1].to_i].taken? }; false
   end
 
   def remove_ship_from_tray(ship)
@@ -64,5 +76,17 @@ private
 
   def lettersplit(str)
     str.split(/\d/).zip(str.split(/\D/).reject { |n| n == "" }).flatten
+  end
+
+  def valid_set?(*kwargs, ship)
+    in_a_row?(*kwargs) || in_a_col?(*kwargs, ship)
+  end
+
+  def in_a_row?(*kwargs)
+    kwargs.map { |arg| arg[0] }.uniq.length == 1 && kwargs.map { |arg| arg[1] }.ordered_list?
+  end
+
+  def in_a_col?(*kwargs, ship)
+    kwargs.map { |arg| arg[0] }.uniq.length == ship.length && kwargs.map { |arg| arg[1] }.uniq.length == 1 && kwargs.map { |arg| arg[0] }.sorted_letters?
   end
 end

@@ -6,6 +6,14 @@ class Game
     @player2 = Player.new(self)
   end
 
+  def over?
+    @player1.ships.sunk? || @player2.ships.sunk? rescue false
+  end
+
+  def ready?
+    @player1.board.ready? && @player2.board.ready?
+  end
+
   def play
     
   end
@@ -14,11 +22,5 @@ class Game
     @phase = "play" if ready?
   end
 
-  def ready?
-    @player1.board.ready? && @player2.board.ready?
-  end
 
-  def over?
-    @player1.ships.sunk? || @player2.ships.sunk?
-  end
 end

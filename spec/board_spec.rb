@@ -32,10 +32,15 @@ describe Board do
     expect(board.frigate[0].y).to eql("1")
   end
 
+  it "does not set ships in squares that are already taken" do
+    board.set(board.tray[:frigate], "A1", "A2", "A3")
+    expect{board.set(board.tray[:battleship], "A1", "A2", "A3", "A4")}.to raise_error(RuntimeError)
+  end
+
   it "knows when the board is ready" do
     expect(board.ready?).to eql(false)
     board.set(board.tray[:frigate], "A1", "A2", "A3")
-    board.set(board.tray[:battleship], "A4", "A5", "A6")
+    board.set(board.tray[:battleship], "A4", "A5", "A6", "A7")
     board.set(board.tray[:carrier], "B1", "B2", "B3", "B4", "B5")
     board.set(board.tray[:cruiser], "B6", "B7", "B8")
     board.set(board.tray[:destroyer], "B9", "B10")
