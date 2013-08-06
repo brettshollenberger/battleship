@@ -15,18 +15,18 @@ class Board < Hash
   end
 
   def set(ship, *kwargs)
-    unless squares_taken?(*kwargs)
-      if valid_set?(*kwargs, ship)
+    if valid_set?(*kwargs, ship)
+      unless squares_taken?(*kwargs)
         replace_empty_squares_with_ship_squares(ship, *kwargs) &&
           set_ship_instance_variable(ship) &&
           remove_ship_from_tray(ship) && 
           ship.set(*kwargs) 
         @game.transition_to_play_phase if @game
       else
-        raise "Invalid location"
+        raise "Square already taken"
       end
     else
-      raise "Square already taken"
+      raise "Invalid location"
     end
   end
 
@@ -79,7 +79,16 @@ private
   end
 
   def valid_set?(*kwargs, ship)
-    in_a_row?(*kwargs) || in_a_col?(*kwargs, ship)
+    on_the_board?(*kwargs) && (in_a_row?(*kwargs) || in_a_col?(*kwargs, ship))
+  end
+
+  def on_the_board?(*kwargs)
+    if kwargs.map { |arg| arg[0] }.each { |arg| break false unless ("A".."J").to_a.include?(arg) }
+      if kwargs.map { |arg| arg[1..-1].to_i }.each { |arg| break false unless (1..10).to_a.include?(arg) }
+        return true
+      end
+    end
+    false
   end
 
   def in_a_row?(*kwargs)
